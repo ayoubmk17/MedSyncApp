@@ -16,4 +16,19 @@ public class RendezVous {
         this.date = date;
         this.statut = StatutRdv.PLANIFIE;
     }
+    // GETTERS & SETTERS
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public Patient getPatient() { return patient; }
+    public void setPatient(Patient patient) { this.patient = patient; }
+
+    public Medecin getMedecin() { return medecin; }
+    public void setMedecin(Medecin medecin) { this.medecin = medecin; }
+
+    public LocalDateTime getDate() { return date; }
+    public void setDate(LocalDateTime date) { this.date = date; }
+
+    public StatutRdv getStatut() { return statut; }
+    public void setStatut(StatutRdv statut) { this.statut = statut; }
 }
