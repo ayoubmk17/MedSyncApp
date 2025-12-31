@@ -6,9 +6,11 @@ import java.util.List;
 
 public class PatientController {
     private List<Patient> patients = new ArrayList<>();
+    private int nextId = 1;
 
     /* ===================== CREATE ===================== */
     public void ajouterPatient(Patient patient) {
+        patient.setId(nextId++);
         patients.add(patient);
     }
 
@@ -21,12 +23,10 @@ public class PatientController {
 
     // Chercher un patient par ID
     public Patient getPatientById(int id) {
-        for (Patient p : patients) {
-            if (p.getId() == id) {
-                return p;
-            }
-        }
-        return null; // non trouvé
+        return patients.stream()
+                .filter(p -> p.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     /* ===================== UPDATE ===================== */
@@ -44,11 +44,6 @@ public class PatientController {
 
     /* ===================== DELETE ===================== */
     public boolean supprimerPatient(int id) {
-        Patient patient = getPatientById(id);
-        if (patient != null) {
-            patients.remove(patient);
-            return true;
-        }
-        return false;
+        return patients.removeIf(p -> p.getId() == id);
     }
 }

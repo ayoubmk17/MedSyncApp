@@ -7,10 +7,17 @@ import java.util.List;
 
 public class RendezVousController {
     private List<RendezVous> rendezVousList = new ArrayList<>();
+    private int nextId = 1;
 
     // CREATE
     public void ajouterRdv(RendezVous rdv) {
+        rdv.setId(nextId++);
         rendezVousList.add(rdv);
+
+        // RELATIONSHIP CONSISTENCY: Mettre à jour l'historique du patient
+        if (rdv.getPatient() != null) {
+            rdv.getPatient().getHistoriqueRdv().add(rdv);
+        }
     }
 
     // READ
@@ -19,19 +26,22 @@ public class RendezVousController {
     }
 
     public void afficherRdvs() {
-        for (RendezVous rdv : rendezVousList) {
-            System.out.println(rdv.getId() + " - " + rdv.getDate());
-        }
+        rendezVousList.forEach(rdv ->
+            System.out.println(rdv.getId() + " - " + rdv.getDate())
+        );
     }
 
     // UPDATE
-    public void modifierRdv(RendezVous rdv) {
-        for (int i = 0; i < rendezVousList.size(); i++) {
-            if (rendezVousList.get(i).getId() == rdv.getId()) {
-                rendezVousList.set(i, rdv);
-                break;
-            }
-        }
+    public void modifierRdv(RendezVous rdvModifie) {
+        rendezVousList.stream()
+            .filter(r -> r.getId() == rdvModifie.getId())
+            .findFirst()
+            .ifPresent(r -> {
+                r.setDate(rdvModifie.getDate());
+                r.setMedecin(rdvModifie.getMedecin());
+                r.setPatient(rdvModifie.getPatient());
+                r.setStatut(rdvModifie.getStatut());
+            });
     }
 
     // DELETE

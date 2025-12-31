@@ -8,10 +8,12 @@ import java.util.Optional;
 
 public class MedecinController {
     private List<Medecin> medecins = new ArrayList<>();
+    private int nextId = 1;
 
     // CREATE
 
     public void ajouterMedecin(Medecin medecin) {
+        medecin.setId(nextId++);
         medecins.add(medecin);
     }
 
