@@ -13,12 +13,18 @@ public class MedecinDAO {
         try (Connection conn = config.DatabaseConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
+            System.out.println("[DEBUG] Connected to: " + conn.getMetaData().getURL());
+            System.out.println("[DEBUG] Inserting Medecin: " + medecin.getNom());
+
             pstmt.setString(1, medecin.getNom());
             pstmt.setString(2, medecin.getPrenom());
             pstmt.setString(3, medecin.getSpecialite().name());
             
-            pstmt.executeUpdate();
+            int rows = pstmt.executeUpdate();
+            System.out.println("[DEBUG] Rows inserted: " + rows);
+
         } catch (SQLException e) {
+            System.err.println("[ERROR] SQL failed: " + e.getMessage());
             e.printStackTrace();
         }
     }
