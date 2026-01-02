@@ -8,4 +8,10 @@ module com.example.medsyncapp {
 
     opens com.example.medsyncapp to javafx.fxml;
     exports com.example.medsyncapp;
+    
+    exports controller;
+    opens controller to javafx.fxml;
+    
+    exports model;
+    opens model to javafx.base;
 }
