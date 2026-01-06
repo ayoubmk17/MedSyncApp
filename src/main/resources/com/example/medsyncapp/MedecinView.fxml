@@ -10,29 +10,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="700.0" spacing="20.0" style="-fx-background-color: #ecf0f1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientViewController">
+<VBox prefHeight="600.0" prefWidth="700.0" spacing="20.0" style="-fx-background-color: #ecf0f1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MedecinViewController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <children>
-        <Label text="Gestion des Patients" textFill="#2c3e50">
+        <Label text="Gestion des Médecins" textFill="#2c3e50">
             <font>
                 <Font name="System Bold" size="28.0" />
             </font>
         </Label>
         <HBox alignment="CENTER_LEFT" spacing="10.0">
             <children>
-                <TextField fx:id="searchField" prefHeight="35.0" prefWidth="300.0" promptText="Rechercher un patient..." />
+                <TextField fx:id="searchField" prefHeight="35.0" prefWidth="300.0" promptText="Rechercher un médecin..." />
                 <Button mnemonicParsing="false" prefHeight="35.0" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Rechercher" />
             </children>
         </HBox>
-        <TableView fx:id="patientTable" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <TableView fx:id="medecinTable" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
             <columns>
                 <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
                 <TableColumn fx:id="colNom" prefWidth="120.0" text="Nom" />
                 <TableColumn fx:id="colPrenom" prefWidth="120.0" text="Prénom" />
-                <TableColumn fx:id="colTelephone" prefWidth="120.0" text="Téléphone" />
-                <TableColumn fx:id="colEmail" prefWidth="180.0" text="Email" />
+                <TableColumn fx:id="colSpecialite" prefWidth="120.0" text="Spécialité" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -40,7 +39,7 @@
         </TableView>
         <HBox alignment="CENTER_RIGHT" spacing="15.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#handleHistorique" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8e44ad; -fx-text-fill: white;" text="Historique" />
+                <Button mnemonicParsing="false" onAction="#handlePlanning" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8e44ad; -fx-text-fill: white;" text="Planning" />
                 <Button mnemonicParsing="false" onAction="#handleSupprimer" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Supprimer" />
                 <Button mnemonicParsing="false" onAction="#handleModifier" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #f39c12; -fx-text-fill: white;" text="Modifier" />
                 <Button mnemonicParsing="false" onAction="#handleAjouter" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white;" text="Ajouter" />

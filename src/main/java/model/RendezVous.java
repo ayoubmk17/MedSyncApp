@@ -9,6 +9,9 @@ public class RendezVous {
     private LocalDateTime date;
     private StatutRdv statut;
 
+    public RendezVous() {
+    }
+
     public RendezVous(int id, Patient patient, Medecin medecin, LocalDateTime date) {
         this.id = id;
         this.patient = patient;

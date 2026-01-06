@@ -90,4 +90,46 @@ public class RendezVousDAO {
             e.printStackTrace();
         }
     }
+
+    public List<RendezVous> findByPatientId(int patientId) {
+        List<RendezVous> rdvs = new ArrayList<>();
+        String sql = "SELECT * FROM rendez_vous WHERE patient_id = ?";
+        return getRendezVousList(sql, patientId);
+    }
+
+    public List<RendezVous> findByMedecinId(int medecinId) {
+        List<RendezVous> rdvs = new ArrayList<>();
+        String sql = "SELECT * FROM rendez_vous WHERE medecin_id = ?";
+        return getRendezVousList(sql, medecinId);
+    }
+
+    private List<RendezVous> getRendezVousList(String sql, int idParam) {
+        List<RendezVous> rdvs = new ArrayList<>();
+        try (Connection conn = config.DatabaseConfig.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, idParam);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                LocalDateTime date = rs.getTimestamp("date_heure").toLocalDateTime();
+                int medecinId = rs.getInt("medecin_id");
+                int fetchedPatientId = rs.getInt("patient_id");
+                String statutStr = rs.getString("statut");
+
+                Medecin medecin = medecinDAO.findById(medecinId);
+                Patient patient = patientDAO.findById(fetchedPatientId);
+
+                RendezVous rdv = new RendezVous(id, patient, medecin, date);
+                if (statutStr != null) {
+                    rdv.setStatut(StatutRdv.valueOf(statutStr));
+                }
+                rdvs.add(rdv);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rdvs;
+    }
 }
